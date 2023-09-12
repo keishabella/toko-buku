@@ -1,12 +1,25 @@
-<h1>Toko Buku</h1>
+<h1>Bookstore</h1>
 
-<h5>Book Name: </h5>
-<p>{{ name }}</p> <!-- Nama Item -->
-<h5>Author: </h5>
-<p>{{ author }}</p> <!-- Nama Author -->
-<h5>Price: </h5>
-<p>{{ price }}</p> <!-- Jumlah Item -->
-<h5>Amount: </h5>
-<p>{{ amount }}</p> <!-- Jumlah Item -->
-<h5>Description: </h5>
-<p>{{ description }}</p> <!-- Deskripsi Item -->
+<h5>Nama: </h5>
+<p>{{ nama }}</p> <!-- Nama -->
+<h5>Kelas: </h5>
+<p>{{ kelas }}</p> <!-- Kelas -->
+
+<h5>Data Informasi Stok Buku</h5>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Book Name</th>    <!-- Nama Item -->
+            <th>Amount</th>       <!-- Jumlah Item -->
+            <th>Description</th>  <!-- Deskripsi Item -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for info in informasi %}
+        <tr>
+            <td>{{ info.name }}</td>  
+            <td>{{ info.amount }}</td>  
+            <td>{{ info.description }}</td>  
+        </tr>
+        {% endfor %}
+</table>
