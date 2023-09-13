@@ -1,7 +1,7 @@
 from django.db import models
 
 class Product(models.Model):
-    nama = models.CharField(max_length=255)
+    nama = models.CharField(max_length=255, default = "")
     kelas = models.TextField()
     name = models.CharField(max_length=255)
     amount = models.IntegerField()
