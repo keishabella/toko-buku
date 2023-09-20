@@ -4,7 +4,7 @@ NPM: 2206082272
 
 Kelas: PBP F
 
-=== TUGAS 1 ===
+=== TUGAS 2 ===
 
 Link adaptable: https://bookstore.adaptable.app/main/
 
@@ -116,7 +116,7 @@ Perbedaan:
 - MVT -> khusus digunakan dalam Django, penggunaan template yang berperan dalam menampilkan data
 - MVVM -> umum digunakan dalam pengembangan aplikasi berbasis dekstop dan mobile, menggunakan ViewModel sebagai perantara sehingga tampilan antarmuka pengguna lebih dinamis
 
-=== TUGAS 2 ===
+=== TUGAS 3 ===
 
 1. Apa perbedaan antara form POST dan form GET dalam Django?
 GET
