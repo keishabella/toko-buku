@@ -4,6 +4,8 @@ NPM: 2206082272
 
 Kelas: PBP F
 
+=== TUGAS 1 ===
+
 Link adaptable: https://bookstore.adaptable.app/main/
 
 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
@@ -113,3 +115,83 @@ Perbedaan:
 - MVC -> umum digunakan dalam pengembangan web tradisional, tampilannya dikontrol oleh View
 - MVT -> khusus digunakan dalam Django, penggunaan template yang berperan dalam menampilkan data
 - MVVM -> umum digunakan dalam pengembangan aplikasi berbasis dekstop dan mobile, menggunakan ViewModel sebagai perantara sehingga tampilan antarmuka pengguna lebih dinamis
+
+=== TUGAS 2 ===
+
+1. Apa perbedaan antara form POST dan form GET dalam Django?
+GET
+- Tidak menampilkan data atau nilai pada URL
+- Lebih aman untuk data-data sensitif, seperti password
+- Digunakan untuk data yang relatif kecil
+
+POST
+- Menampilkan data atau nilai pada URL
+- Kurang aman untuk data sensitif
+- Digunakan untuk data yang relatif besar
+
+2. Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
+XML
+- Markup languange untuk menyimpan dan nmengirim data
+- Menyimpan elemen secara terstruktur 
+- Lebih sulit dibaca karena banyaknya tag dan hierarki yang kompleks
+
+JSON
+- Syntax JSON lebih mudah dibaca dibandingkan XML
+- Memiliki stuktur yang lebih sederhana
+
+HTML
+- Berfokus dalam penyajian data untuk mengatur tampilan dari halaman web
+- Mudah dibaca
+
+3. Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+JSON sering digunakan dalam pertukaran data antara aplikasi web modern karena memiliki syntax yang ringan dan mudah dibaca oleh manusia. Selain itu, JSON mudah diproses oleh mesin dan mudah untuk melakukan parsing.
+
+4. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+a. Membuat input form untuk menambahkan objek model pada app sebelumnya
+- Membuka folder toko_buku lalu masuk ke cmd
+- Menjalankan virtual environment
+- Membuka urls.py yang ada di folder toko_buku lalu ubah path main/ menjadi ''
+- Mengimplementasikan skeleton sebagai kerangka views dengan membuat folder templates pada root folder dan membuat berkas base.htm yang berfungsi sebagai template dasar yang dapat digunakan sebagai kerangka umum untuk halaman web lainnya di dalam proyek.
+- Membuka settings.py pada subdirektori shopping_list dan menambahkan "'DIRS': [BASE_DIR / 'templates']" pada "TEMPLATES" agar berkas base.html terdeteksi sebagai berkas template.
+- Ubah code berkas main.html pada subdirektori templates yang ada pada direktori main dengan menambahkan "{% extends 'base.html' %}" yang berarti kita menggunakan base.html sebagai template utama.
+- Membuat berkas baru pada direktori main dengan nama forms.py untuk membuat struktur form yang dapat menerima data produk baru dan mengisi file dengan kode yang sesuai.
+- Menambahkan beberapa import yang sesuai pada berkas views.py 
+- Membuat fungsi baru bernama create_product pada views.py untuk menerima parameter request dan menuliskan kode yang sesuai untuk menghasilkan formulir yang dapat menambahkan data produk secara otomatis ketika data di-submit dari form.
+- Menambahkan "products = Product.objects.all()" pada fungsi show_main dalam berkas views.py untuk mengambil seluruh object Product yang tersimpan pada database.
+- Import fungsi create_product dalam urls.py pada folder main
+- Menambahkan path url ke dalam urlpatterns pada urls.py di main untuk mengakses fungsi yang sudah di-import.
+- Membuat berkas html baru bernama create_product.html pada direktori main/templates dengan kode yang sesuai.
+- Menambahkan kode yang sesuai pada main.htm untuk menampilkan data produk dalam bentuk table serta tombol "Add New Product" yang akan redirect ke halaman form.
+
+b. Tambahkan 5 fungsi views untuk melihat objek yang sudah ditambahkan dalam format HTML, XML, JSON, XML by ID, dan JSON by ID
+- Membuka views.py pada folder main dan menambahkan import HttpResponse dan Serializer
+- Membuat fungsi yang menerima parameter request bernama show_xml dan show_json, lalu mengisinya dengan kode yang sesuai
+- Membuat fungsi yang menerima parameter equest dan id bernama show_xml_by_id dan show_json_by_id, lalu mengisinya dengan kode yang sesuai
+- Mengimpor fungsi yang sudah dibuat dalam urls.py pada folder main
+- Menambahkan path utl ke dalam urlpatterns untuk mengakses fungsi yang sudah diimpor tadi
+
+c. Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 2
+- Menambahkan 
+    path('', show_main, name='show_main'),  -> HTML
+    path('create-product', create_product, name='create_product'),
+    path('xml/', show_xml, name='show_xml'), -> XML
+    path('json/', show_json, name='show_json'),   -> JSON
+    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),  -> XML by ID
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'),   -> JSON by ID
+  ke dalam urlpatterns di urls.py
+
+Screenshot dari hasil akses URL pada Postman
+- HTML 
+![HTML](HTML.png)
+
+- JSON
+![JSON](JSON.png)
+
+- JSON by ID
+![JSON by ID](JSONbyID.png)
+
+- XML
+![XML](XML.png)
+
+- XML by ID
+![XML by ID](XMLbyID.png)

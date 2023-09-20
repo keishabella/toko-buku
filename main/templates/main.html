@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h1>Bookstore</h1>
 
 <h5>Nama: </h5>
@@ -6,20 +9,31 @@
 <p>{{ kelas }}</p> <!-- Kelas -->
 
 <h5>Data Informasi Stok Buku</h5>
-<table border="1">
-    <thead>
+
+<table border = "1">
+    <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Date Added</th>
+    </tr>
+
+    {% for product in products %}
         <tr>
-            <th>Book Name</th>    <!-- Nama Item -->
-            <th>Amount</th>       <!-- Jumlah Item -->
-            <th>Description</th>  <!-- Deskripsi Item -->
+            <td>{{product.name}}</td>
+            <td>{{product.amount}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.date_added}}</td>
         </tr>
-    </thead>
-    <tbody>
-        {% for info in informasi %}
-        <tr>
-            <td>{{ info.name }}</td>  
-            <td>{{ info.amount }}</td>  
-            <td>{{ info.description }}</td>  
-        </tr>
-        {% endfor %}
+    {% endfor %}
 </table>
+
+<br />
+
+<a href="{% url 'main:create_product' %}">
+    <button>
+        Add New Product
+    </button>
+</a>
+
+{% endblock content %}
