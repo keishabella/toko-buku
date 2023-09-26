@@ -195,3 +195,56 @@ Screenshot dari hasil akses URL pada Postman
 
 - XML by ID
 ![XML by ID](XMLbyID.png)
+
+
+=== TUGAS 4 ===
+
+1. Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+- UserCreationForm adalah impor formulir bawaan yang memudahkan pembuatan formulir pendaftaran pengguna dalam aplikasi web. Dengan formulir ini, pengguna baru dapat mendaftar dengan mudah di situs web Anda tanpa harus menulis kode dari awal.
+- Kelebihan: mudah digunakan, data pribadi (seperti password) aman terjaga dalam database, dapat di custom sesuai kebutuhan
+- Kekurangan: tampilan defaultnya sederhana, fungsi autentikasinya terbatas, dan tidak memiliki fitur lanjutan selain username dan password
+
+2. Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+- Autentikasi adalah proses memverifikasi identitas pengguna atau siapa yang mengakses (login)
+- Otorisasi adalah proses memverifikasi apakah pengguna mempunyai akses terhadap sesuatu
+- Keduanya penting karena mengontrol akses dan keamanan pengguna dalam melakukan suatu tindakan
+
+3. Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
+- Cookies dalam konteks aplikasi web adalah data kecil yang disimpan di sisi klien dalam browser dan digunakan untuk menyimpan informasi mengenai autentikasi, user tracking, dan preferensi pengguna.
+- Django menggunakan cookies untuk mengelola data sesi pengguna dengan membaca parameter cookies yang di pass ole browser, menyimpan data di session model, memodifikasi informasi di session, dan mengirimkan cookies kembali ke browser.
+
+4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+- Mungkin ada risiko potensial yang harus diwaspadai, seperti kebocoran data atau pencurian informasi, cookies tidak aman, dan dapat mengancam privasi pengguna.
+
+5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+a. Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna untuk mengakses aplikasi sebelumnya dengan lancar.
+- Menjalankan virtual environment
+- Membuat fungsi register, login_user, dan logout_user dengan parameter request pada views.py di subdirektori main
+- Menambahkan import redirect, UserCreationForm, messages, authenticate, login, dan logout pada bagian paling atas
+- Membuat berkas register.html dan login.html pada folder main/templates dengan isi yang sesuai
+- Menambahkan button logout di berkas main.html
+- Impor fungsi register, login_user, dan logout_user pada urls.py
+- Menambahkan path url ke urlpatterns untuk mengakses fungsi yang telah diimpor
+
+b. Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.
+- Melakukan register akun
+- Login dengan username dan password yang sudah didaftarkan
+- Menambahkan data dengan add new product
+
+c. Menghubungkan model Item dengan User.
+- Menambahkan kode untuk mengimpor model "from django.contrib.auth.models import User" pada models.py di subdirektori main
+- Menambahkan model Product yang telah dibuat dengan "user = models.ForeignKey(User, on_delete=models.CASCADE)" untuk menghubungkan satu produk dengan satu user melalui sebuah relationship dimana sebuah produk pasti terasosiasikan dengan seorang user
+- Mengubah potongan kode pada fungsi create_product yang ada di views.py dalam subdirektori main dengan kode yang sesuai sehingga dapat mencegah Django agar tidak langsung menyimpan objek yang telah dibuat dari form langsung ke database sehingga memungkinkan kita untuk memodifikasi terlebih dahulu objek tersebut sebelum disimpan ke database. Kita dapat mengisi field user dengan objek User dari return value request.user yang sedang terotorisasi untuk menandakan bahwa objek tersebut dimiliki oleh pengguna yang sedang login
+- Mengubah fungsi show_main dengan kode yang sesuai untuk menampilkan objek Product yang terasosiasikan dengan pengguna yang sedang login. Ini dilakukan dengan menyaring seluruh objek dengan hanya mengambil Product yang dimana field user terisi dengan objek User yang sama dengan pengguna yang sedang login. Kemudian ditambahkan juga request.user.username berfungsi untuk menampilkan username pengguna yang login pada halaman main
+- Menyimpan semua perubahan
+- Melakukan migrasi model
+- Mengaplikasikan migrasi yang telah dilakukan
+
+d. Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last login pada halaman utama aplikasi.
+- Menambahkan import login_required pada bagian paling atas views.py
+- Menambahkan kode @login_required(login_url='/login') di atas fungsi show_main agar halaman main hanya dapat diakses oleh pengguna yang sudah login (terautentikasi)
+- Menambahkan import HttpResponseRedirect, reverse, dan datetime pada bagian paling atas views.py dalam subdirektori main
+- Menambahkan fungsi untuk menambahkan cookie bernama last_login pada fungsi login_user untuk melihat kapan terakhir kali pengguna melakukan login
+- Menambahkan potongan code 'last_login': request.COOKIES['last_login'] ke dalam variabel context pada fungsi show_main
+- Mengubah fungsi logout_user dengan menambahkan response.delete_cookie('last_login') untuk menghapus cookie last_login saat pengguna melakukan logout
+- Menambahkan kode untuk menampilkan sesi terakhir login di main.html
