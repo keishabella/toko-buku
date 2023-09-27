@@ -231,6 +231,11 @@ b. Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan mo
 - Login dengan username dan password yang sudah didaftarkan
 - Menambahkan data dengan add new product
 
+- Akun Pengguna 1
+![Akun Pengguna 1](AkunPengguna1.png)
+- Akun Pengguna 2
+![Akun Pengguna 2](AkunPengguna2.png)
+
 c. Menghubungkan model Item dengan User.
 - Menambahkan kode untuk mengimpor model "from django.contrib.auth.models import User" pada models.py di subdirektori main
 - Menambahkan model Product yang telah dibuat dengan "user = models.ForeignKey(User, on_delete=models.CASCADE)" untuk menghubungkan satu produk dengan satu user melalui sebuah relationship dimana sebuah produk pasti terasosiasikan dengan seorang user
