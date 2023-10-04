@@ -1,12 +1,12 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% load static %}
 
 {% block content %}
-
 <div class="container">
-    <h1 class = "bold-font">Add New Product</h1>
+    <h1 class = "bold-font">Edit Product</h1>
 
+    <!-- Formulir "Edit Product" Anda -->
     <form method="POST">
         {% csrf_token %}
         <table>
@@ -14,17 +14,19 @@
             <tr>
                 <td></td>
                 <td>
-                    <input class="button" type="submit" value="Add Product"/>
+                    <input class="button" type="submit" value="Edit Product"/>
                 </td>
             </tr>
         </table>
     </form>
 </div>
 
+<!-- Link font style yang digunakan -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
+<!-- Tambahkan gaya CSS sesuai dengan halaman login -->
 <style>
     /* CSS yang sesuai dengan halaman login Anda */
     body {
@@ -32,7 +34,7 @@
         font-family: 'Poppins', sans-serif;
     }
 
-    /* CSS untuk kontainer */
+    /* CSS untuk container */
     .container {
         background-color: #fff;
         padding: 20px;
@@ -55,7 +57,7 @@
         color: #fff; /* Warna teks */
         border: none; /* Menghilangkan border */
         padding: 10px 20px; /* Padding (jarak dalam tombol) */
-        border-radius: 10px; /* Sudut border yang melengkung */
+        border-radius: 5px; /* Sudut border yang melengkung */
         cursor: pointer; /* Mengubah kursor saat digunakan */
     }
 
@@ -72,5 +74,4 @@
         padding: 10px;
     }
 </style>
-
 {% endblock %}

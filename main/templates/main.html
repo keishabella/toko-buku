@@ -1,47 +1,246 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Bookstore</h1>
 
-<h5>Nama: </h5>
-<p>{{ nama }}</p> <!-- Nama -->
-<h5>Kelas: </h5>
-<p>{{ kelas }}</p> <!-- Kelas -->
+<!-- Navbar -->
+<nav class="navbar">
+    <!-- Mengatur navbar di sebelah kiri -->
+    <div class="navbar-left">
+        <h1 class="custom-font-nama-toko">Bookstore Inventory</h1>
+        <a href="{% url 'main:create_product' %}">
+            <button class="navbar-button">Add New Product</button>  <!-- Button untuk menambah produk baru -->
+        </a>
+    </div>
+    <!-- Mengatur navbar di seblah kanan -->
+    <div class="navbar-right">
+        <!-- Mengatur navbar untuk menampilkan informasi mengenai nama/username dan kelas -->
+        <div class="navbar-info">
+            <p>Hi, <span class="bold-font">{{ nama }}</span>!</p> <!-- Menampilkan Nama -->
+            <p>{{ kelas }}</p> <!-- Menampilkan Kelas -->
+            <p>Sesi terakhir login: {{ last_login }}</p>
+        </div>
+        <a href="{% url 'main:logout' %}">
+            <button class="navbar-button">Logout</button>  <!-- Button untuk keluar dari akun -->
+        </a>
+    </div>
+</nav>
 
-<h5>Data Informasi Stok Buku</h5>
+<!-- Link font yang digunakan-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap" rel="stylesheet">
 
-<table border = "1">
-    <tr>
-        <th>Name</th>
-        <th>Amount</th>
-        <th>Description</th>
-        <th>Date Added</th>
-    </tr>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
-    {% for product in products %}
-        <tr>
-            <td>{{product.name}}</td>
-            <td>{{product.amount}}</td>
-            <td>{{product.description}}</td>
-            <td>{{product.date_added}}</td>
-        </tr>
-    {% endfor %}
-</table>
+<style>
+    /* Mengatur tampilan navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        color: #fff;
+        padding: 10px 20px;
+    }
 
-<br />
+    .navbar-left {
+        display: flex;
+        align-items: center;
+    }
 
-<a href="{% url 'main:create_product' %}">
-    <button>
-        Add New Product
-    </button>
-</a>
+    .navbar h1 {
+        font-size: 24px;
+        margin: 0;
+        color: #000; /* Warna teks hitam */
+        margin-right: 20px; /* Memberi jarak kanan antara "Bookstore Inventory" dan tombol */
+    }
 
-<h5>Sesi terakhir login: {{ last_login }}</h5>
+    /* Mengatur tampilan button pada navbar */
+    .navbar-button {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
 
-<a href="{% url 'main:logout' %}">
-    <button>
-        Logout
-    </button>
-</a>
+    /* Mengatur tampilan teks nama dan kelas */
+    .navbar-info p {
+        margin: 0;
+        color: #000;
+    }
+
+    .navbar-right {
+        display: flex;
+        align-items: center;
+        text-align: right;
+    }
+
+    /* Mengatur tampilan teks nama dan kelas */
+    .navbar-right p {
+        margin-right: 10px; /* Memberi jarak antara nama, kelas, dan tombol */
+        color: #000; /* Warna teks nama dan kelas menjadi hitam */
+    }
+
+    /* Mengatur tampilan nama/username menjadi bold */
+    .bold-font {
+        font-weight: bold;
+    }
+
+    /* Mengatur font style untuk "Bookstore Inventory" */
+    .custom-font-nama-toko {
+        font-family: 'Young Serif', serif;
+        font-size: 24px;
+        margin: 0;
+        color: #000;
+        margin-right: 20px;
+    }
+
+    /* Mengatur font style ke semua tulisan kecuali "Bookstore" */
+    *:not(.custom-font-nama-toko) {
+        font-family: 'Poppins', sans-serif;
+    }
+</style>
+
+<!-- Mengatur tampilan tabel yang berisikan produk -->
+<div class="container">
+    <div style="text-align: center; padding: 20px; margin-bottom: 20px;">
+        <h5 class = "bold-font">Data Informasi Stok Buku</h5>
+    </div>
+    
+    <table class="product-table">
+        <thead style="background-color: pink; color: black;">
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date Added</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr class="inventory-product">
+                <td class="name-cell">{{ product.name }}</td>
+                <td class="amount-cell">
+                    <a href="reduce-amount/{{product.pk}}">
+                        <button>-</button>
+                    </a>
+                    {{ product.amount }}
+                    <a href="add-amount/{{product.pk}}">
+                        <button>+</button>
+                    </a>
+                </td>
+                <td class="description-cell">{{ product.description }}</td>
+                <td class="date-added-cell">{{ product.date_added }}</td>
+                <td style="white-space: nowrap;"> <!-- Button tidak melompat ke baris berikutnya -->
+                    <a href="{% url 'main:edit_product' product.pk %}">
+                        <button>Edit</button>
+                    </a>
+                    <span class="button-group"></span>
+                    <a href="{% url 'main:delete_product' product.pk %}">
+                        <button>Delete</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    /* Mengatur tampilan untuk elemen-elemen dalam halaman main */
+    body {
+        background-color: #c3e1eb; /* Warna biru muda*/
+    }
+
+    /* Center the container */
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh; /* Adjust the height as needed */
+    }
+
+    /* Mengatur tampilan tabel produk */
+    .product-table {
+        width: 80%; /* Adjust the width as needed */
+        border-collapse: collapse;
+        margin: auto; /* Center the table horizontally within the container */
+        background-color: #fff; /* Set the table background color to white or any desired color */
+    }
+
+    .product-table th, .product-table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+    }
+
+    /* Mengatur rata tengah untuk kolom tabel */
+    .product-table th {
+        text-align: center;
+    }
+
+    /* Rata tengah untuk nama produk */
+    .product-table .name-cell {
+        text-align: center;
+    }
+
+    /* Mengatur lebar dan rata tengah pada kolom "Amount" */
+    .product-table .amount-cell {
+        width: 150px; /* Sesuaikan lebar sesuai kebutuhan Anda */
+        text-align: center; /* Rata tengahkan isi kolom */
+    }
+
+    /* Rata justify untuk deskripsi */
+    .product-table .description-cell {
+        text-align: justify;
+    }
+
+    /* Mengatur lebar kolom "Date Added" dan rata tengah */
+    .product-table .date-added-cell {
+        width: 140px; 
+        text-align: center;
+    }
+
+    .product-table tr:hover {
+        background-color: #ddd;
+    }
+
+    /* Mengatur tampilan button */
+    .product-table button {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+
+    /* Mengatur tampilan button ketika di-hover*/
+    .product-table button:hover {
+        background-color: #0056b3;
+    }
+
+    .button-group {
+    display: inline-block; /* Agar tombol-tombol berada dalam satu baris */
+    margin-left: 10px; /* Memberi jarak antara tombol "Edit" dan "Delete" */
+    }
+
+    /* CSS untuk tombol hover (saat kursor di atas tombol) */
+    .navbar-button:hover {
+        background-color: #0056b3; /* Warna latar belakang saat hover */
+    }
+
+    /* Ganti dengan warna tabel baris terakhir */
+    .inventory-product:last-child {
+    background-color: rgb(249, 221, 221); 
+}
+</style>
 
 {% endblock content %}

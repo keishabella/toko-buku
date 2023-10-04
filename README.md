@@ -4,7 +4,8 @@ NPM: 2206082272
 
 Kelas: PBP F
 
-=== TUGAS 2 ===
+<details>
+<summary>TUGAS 2</summary>
 
 Link adaptable: https://bookstore.adaptable.app/main/
 
@@ -16,7 +17,7 @@ a. Membuat sebuah proyek Django baru.
 - Mengaktifkan virtual environment dengan mennjalankan perintah "env\Scripts\activate.bat". Virtual environment akan aktif yang ditandai dengan (env) di baris input terminal
 - Di dalam direktori toko_buku, dibuat berkas requirements.txt dan menambahkan beberapa dependecies
 - Pasang dependencies dengan menjalankan perintah "pip install -r requirements.txt"
-- Membuat proyek Django dengan nama toko_buku dengan perintah "django-admin startproject shopping_list ."
+- Membuat proyek Django dengan nama toko_buku dengan perintah "django-admin startproject toko_buku ."
 - Untuk konfigurasi proyek dan menjalankan server, ditambahkan "*" pada ALLOWED_HOST di settings.py untuk keperluan deployment dan mengizinkan akses dari semua host
 - Menjalankan server Django dengan perintah "python manage.py runserver"
 - Membuka http://localhost:8000 pada peramban web dan terlihat animasi roket, maka aplikasi Django sudah berhasil dibuat
@@ -115,8 +116,10 @@ Perbedaan:
 - MVC -> umum digunakan dalam pengembangan web tradisional, tampilannya dikontrol oleh View
 - MVT -> khusus digunakan dalam Django, penggunaan template yang berperan dalam menampilkan data
 - MVVM -> umum digunakan dalam pengembangan aplikasi berbasis dekstop dan mobile, menggunakan ViewModel sebagai perantara sehingga tampilan antarmuka pengguna lebih dinamis
+</details>
 
-=== TUGAS 3 ===
+<details>
+<summary>TUGAS 3</summary>
 
 1. Apa perbedaan antara form POST dan form GET dalam Django?
 GET
@@ -195,9 +198,10 @@ Screenshot dari hasil akses URL pada Postman
 
 - XML by ID
 ![XML by ID](XMLbyID.png)
+</details>
 
-
-=== TUGAS 4 ===
+<details>
+<summary>TUGAS 4</summary>
 
 1. Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
 - UserCreationForm adalah impor formulir bawaan yang memudahkan pembuatan formulir pendaftaran pengguna dalam aplikasi web. Dengan formulir ini, pengguna baru dapat mendaftar dengan mudah di situs web Anda tanpa harus menulis kode dari awal.
@@ -253,3 +257,113 @@ d. Menampilkan detail informasi pengguna yang sedang logged in seperti username 
 - Menambahkan potongan code 'last_login': request.COOKIES['last_login'] ke dalam variabel context pada fungsi show_main
 - Mengubah fungsi logout_user dengan menambahkan response.delete_cookie('last_login') untuk menghapus cookie last_login saat pengguna melakukan logout
 - Menambahkan kode untuk menampilkan sesi terakhir login di main.html
+</details>
+
+<details>
+<summary>TUGAS 5</summary>
+
+## Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+Element Selector memungkinkan kita mengubah properti untuk semua elemen yang memiliki tag HTML yang sama menggunakan element sebagai selector dalam file CSS. Element selector menggunakan format [id_name] (tanpa diawali oleh sebuah simbol). Element selector dapat digunakan saat ingin memberi style yang sama pada beberapa elemen dengan tag uang sama dalam berkas html.
+
+## Jelaskan HTML5 Tag yang kamu ketahui.
+- `<head>` -> Digunakan untuk bagian kepala dari dokumen;
+- `<title>` -> Digunakan untuk judul web;
+- `<body>` -> Digunakan untuk bagian isi dari website.
+- `<header>` -> Digunakan untuk mengelompokkan elemen-elemen yang berada di bagian atas halaman atau bagian dari suatu konten. Biasanya, ini termasuk logo, judul halaman, navigasi, dan elemen-elemen terkait lainnya.
+- `<tr>` -> Mendefinisikan setiap baris dalam tabel
+- `<td>` -> Mendefinisikan sel data yang merupakan konten utama dalam tabel. Sel berada di dalam baris
+- `<th>` -> Digunakan untuk mendefinisikan sel header, seperti judul kolom.
+- `<nav>` -> Digunakan untuk mengelompokkan elemen-elemen yang mengandung navigasi situs web, seperti menu navigasi utama.
+- `<h1> sampai <h6>` -> Digunakan untuk membuat heading pada artikel
+- `<p>` ->	Digunakan untuk membuat paragraf
+- `<br>`	Memasukan satu baris putus
+- `<!-- -->` -> Digunakan untuk membuat komentar
+
+## Jelaskan perbedaan antara margin dan padding.
+Margin digunakan untuk mengatur jarak antara suatu elemen dengan elemen-elemen lain di luarnya. Margin tidak mempunyai warna background dan atribut visual lain.
+Padding digunakan untuk mengatur jarak antara konten dalam elemen dengan batas elemen itu sendiri. Padding dapat memiliki warna latar belakang yang sama dengan elemen tersebut, sehingga bagian padding akan berwarna sesuai dengan elemen tersebut.
+
+## Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+Tailwind	
+- Tailwind CSS membangun tampilan dengan menggabungkan kelas-kelas utilitas yang telah didefinisikan sebelumnya.
+- Tailwind CSS memiliki file CSS yang lebih kecil sedikit dibandingkan Bootstrap dan hanya akan memuat kelas-kelas utilitas yang ada.
+- Tailwind CSS memiliki memberikan fleksibilitas dan adaptabilitas tinggi terhadap proyek.
+- Tailwind CSS memiliki pembelajaran yang lebih curam karena memerlukan pemahaman terhadap kelas-kelas utilitas yang tersedia dan bagaimana menggabungkannya untuk mencapai tampilan yang diinginkan.
+
+Bootstrap	
+- Bootstrap menggunakan gaya dan komponen yang telah didefinisikan, yang memiliki tampilan yang sudah jadi dan dapat digunakan secara langsung.
+- Bootstrap memiliki file CSS yang lebih besar dibandingkan dengan Tailwind CSS karena termasuk banyak komponen yang telah didefinisikan.
+- Bootstrap sering kali menghasilkan tampilan yang lebih konsisten di seluruh proyek karena menggunakan komponen yang telah didefinisikan.
+- Bootstrap memiliki pembelajaran yang lebih cepat untuk pemula karena dapat mulai dengan komponen yang telah didefinisikan.
+
+Bootstrap dapat digunakan pada saat ingin mendesain dengan lebih efesien menggunakan komponen yang sudah disediakan. Sedangkan, Tailwind CSS dapat digunakan pada saat menginginkan tampilan yang fleksibel sesuai dengan keinginan.
+
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+- Pertama-tama, menambahkan bootstrap CSS dan juga JS
+```<head>
+    {% block meta %}
+        ...
+    {% endblock meta %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+J4jsl5c9zdLKaUk5Ae5f5b1bw6AUn5f5v8FZJoMxm6f5cH1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</head>```
+
+- Memodifikasi warna background pada halaman login
+```body {
+        background-color: #C2E4F7; /* Warna biru */
+        ...
+    }```
+
+- Memodifikasi font style pada halaman login
+```body {
+        ...
+        font-family: 'Poppins', sans-serif;
+    }```
+
+- Memodifikasi tampilan button yang ada pada halaman login
+`
+  .btn-daftar {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  }
+`
+
+- Memodifikasi halaman register, edit product, dan add new product, seperti memodifikasi tampilan halaman login
+
+- Menambahkan navbar
+
+- Membuat navbar di bagian kiri berisikan nama proyek dan button untuk menambahkan produk baru
+`<div class="navbar-left">
+        <h1 class="custom-font-nama-toko">Bookstore</h1>
+        <a href="{% url 'main:create_product' %}">
+            <button class="navbar-button">Add New Product</button>  <!-- Button untuk menambah produk baru -->
+        </a>
+    </div>`
+
+- Membuat navbar di bagian kanan berisikan nama/username, kelas, dan button logout
+`<div class="navbar-right">
+        <!-- Mengatur navbar untuk menampilkan informasi mengenai nama/username dan kelas -->
+        <div class="navbar-info">
+            <p>Hi!, <span class="bold-font">{{ nama }}</span>!</p> <!-- Menampilkan Nama -->
+            <p>{{ kelas }}</p> <!-- Menampilkan Kelas -->
+            <p>Sesi terakhir login: {{ last_login }}</p>
+        </div>
+        <a href="{% url 'main:logout' %}">
+            <button class="navbar-button">Logout</button>  <!-- Button untuk keluar dari akun -->
+        </a>
+    </div>`
+
+- Mengatur tampilan untuk bagian tabel yang berisikan produk-produk yang ada
+
+- Mengatur tampilan baris terakhir tabel agar menampilkan warna yang berbeda dengan baris yang lain
+```.inventory-product:last-child {
+    background-color: rgb(249, 221, 221); ```
+
+</details>
