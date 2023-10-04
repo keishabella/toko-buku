@@ -300,7 +300,8 @@ Bootstrap dapat digunakan pada saat ingin mendesain dengan lebih efesien menggun
 
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 - Pertama-tama, menambahkan bootstrap CSS dan juga JS
-```<head>
+```
+<head>
     {% block meta %}
         ...
     {% endblock meta %}
@@ -308,23 +309,28 @@ Bootstrap dapat digunakan pada saat ingin mendesain dengan lebih efesien menggun
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+J4jsl5c9zdLKaUk5Ae5f5b1bw6AUn5f5v8FZJoMxm6f5cH1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-</head>```
+</head>
+```
 
 - Memodifikasi warna background pada halaman login
-```body {
+```
+body {
         background-color: #C2E4F7; /* Warna biru */
         ...
-    }```
+    }
+```
 
 - Memodifikasi font style pada halaman login
-```body {
+```
+body {
         ...
         font-family: 'Poppins', sans-serif;
-    }```
+    }
+```
 
 - Memodifikasi tampilan button yang ada pada halaman login
-`
-  .btn-daftar {
+```
+.btn-daftar {
       background-color: #007BFF;
       color: #fff;
       border: none;
@@ -333,22 +339,25 @@ Bootstrap dapat digunakan pada saat ingin mendesain dengan lebih efesien menggun
       cursor: pointer;
       transition: background-color 0.3s ease;
   }
-`
+```
 
 - Memodifikasi halaman register, edit product, dan add new product, seperti memodifikasi tampilan halaman login
 
 - Menambahkan navbar
 
 - Membuat navbar di bagian kiri berisikan nama proyek dan button untuk menambahkan produk baru
-`<div class="navbar-left">
+```
+<div class="navbar-left">
         <h1 class="custom-font-nama-toko">Bookstore</h1>
         <a href="{% url 'main:create_product' %}">
             <button class="navbar-button">Add New Product</button>  <!-- Button untuk menambah produk baru -->
         </a>
-    </div>`
+    </div>
+```
 
 - Membuat navbar di bagian kanan berisikan nama/username, kelas, dan button logout
-`<div class="navbar-right">
+```
+<div class="navbar-right">
         <!-- Mengatur navbar untuk menampilkan informasi mengenai nama/username dan kelas -->
         <div class="navbar-info">
             <p>Hi!, <span class="bold-font">{{ nama }}</span>!</p> <!-- Menampilkan Nama -->
@@ -358,12 +367,15 @@ Bootstrap dapat digunakan pada saat ingin mendesain dengan lebih efesien menggun
         <a href="{% url 'main:logout' %}">
             <button class="navbar-button">Logout</button>  <!-- Button untuk keluar dari akun -->
         </a>
-    </div>`
+    </div>
+```
 
 - Mengatur tampilan untuk bagian tabel yang berisikan produk-produk yang ada
 
 - Mengatur tampilan baris terakhir tabel agar menampilkan warna yang berbeda dengan baris yang lain
-```.inventory-product:last-child {
-    background-color: rgb(249, 221, 221); ```
+```
+.inventory-product:last-child
+    background-color: rgb(249, 221, 221); 
+```
 
 </details>
