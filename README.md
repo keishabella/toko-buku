@@ -423,9 +423,158 @@ jQuery:
 - Lebih berat karena perlu mengunduh library eksternal
 - Kompatibilitas lebih baik dengan berbagai browser
 
-Menurut saya, lebih baik untuk menggunakan Fetch API dalam pembelajaran PBP ini karena pendekatannnya lebih modern dan efisien. Namun jQuery juga dapat dilakukan dalam proyek yang lebih besar karena sintaks yang disediakan lebih ringkas dan mudah dipahami.
+Menurut saya, lebih baik untuk menggunakan Fetch API dalam pembelajaran PBP ini karena pendekatannnya lebih modern, efisien, dan cocok untuk pemula. Namun jQuery juga dapat dilakukan dalam proyek yang lebih besar karena sintaks yang disediakan lebih ringkas dan mudah dipahami.
 
 ## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Implementasi AJAX GET:
+- Membuat fungsi `get_product_json` pafa `views.py` yang menerima parameter `request` untuk menampilkan data produk pada HTML dengan menggunakan `fetch`
+- Mengambil item/product pengguna dalam format JSON
+```
+...
+from django.views.decorators.csrf import csrf_exempt
+...
 
+def get_product_json(request):
+    product_item = Product.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', product_item))
+
+...
+```
+- Membuat fungsi untuk memperbarui dan menambahkan data pada card di halaman web serta refresh product. 
+```
+<script>
+    async function getProduct() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+    
+    async function refreshProduct() {
+        document.getElementById("product_card").innerHTML = ""
+        const product = await getProduct()
+        let htmlString = ""
+        product.forEach((product) => {
+            htmlString += `<div class="card">
+            <div class="card-body">
+                <h5 class="card-title">${product.fields.name}</h5>
+                <p class="card-text">Amount: ${product.fields.amount}</p>
+                <p class="card-text">${product.fields.description}</p>
+                <a href="decrease/${product.pk}"><button class="bttn">-</button></a>
+                <a href="increase/${product.pk}"><button class="bttn">+</button></a>
+            </div>
+            </div>` 
+        })
+        
+        document.getElementById("product_card").innerHTML = htmlString
+    }
+
+    refreshProduct()
+
+    ...
+</script>
+```
+- Import fungsi-fungsi yang baru ditambahkan `views.py` pada `urls.py` dan menambahkan path url nya
+```
+...
+from main.views import get_product_json, create_ajax
+...
+
+urlpatterns = [
+...
+    path('get-product/', get_product_json, name='get_product_json'),
+]
+```
+
+Implementasi AJAX POST:
+- Membuat form modal 
+```
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                      <label for="name" class="col-form-label">Name:</label>
+                      <input type="text" class="form-control" id="name" name="name"></input>
+                    </div>
+                    <div class="mb-3">
+                      <label for="amount" class="col-form-label">Amount:</label>
+                      <input type="number" class="form-control" id="amount" name="amount"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+```
+- Membuat button untuk membuka modal tersebut 
+```
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+```
+- Pada `views.py`, dibuat fungsi `create_ajax` yang berfungsi untuk menambahkan product
+```
+```
+...
+from django.views.decorators.csrf import csrf_exempt
+...
+
+@csrf_exempt
+def create_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_item = Item(name=name, amount=amount, description=description, user=user)
+        new_item.save()
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+```
+```
+- - Import fungsi-fungsi yang baru ditambahkan `views.py` pada `urls.py` dan menambahkan path url nya
+```
+...
+from main.views import get_product_json, create_ajax
+...
+
+urlpatterns = [
+...
+    path('create-ajax/', create_ajax, name='create_ajax'),
+]
+```
+- Menghubungkan form ke fungsi `create_ajax` dengan membuat fungsi JavaScript `addProduct` dan akan melakukan fetch terhadap `create_ajax` dengan mengirimkan permintaan HTTP menggunakan metode POST dan data-data yang dikirimkan melalui modal, serta memanggil fungsi `refreshProduct` untuk memperbarui product.
+```
+<script>
+    ...
+
+    function addProduct() {
+        fetch("{% url 'main:create_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProduct)
+
+        document.getElementById("form").reset()
+        return false
+    }
+
+    document.getElementById("button_add").onclick = addProduct
+</script>
+```
+
+Melakukan perintah `collectstatic`
+- Menjalankan perintah `python manage.py collectstatic` di terminal
 
 </details>
