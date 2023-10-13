@@ -8,7 +8,8 @@
     <div class="navbar-left">
         <h1 class="custom-font-nama-toko">Bookstore Inventory</h1>
         <a href="{% url 'main:create_product' %}">
-            <button class="navbar-button">Add New Product</button>  <!-- Button untuk menambah produk baru -->
+            <button class="bttn">Add New Product</button>  <!-- Button untuk menambah produk baru -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
         </a>
     </div>
     <!-- Mengatur navbar di seblah kanan -->
@@ -20,7 +21,7 @@
             <p>Sesi terakhir login: {{ last_login }}</p>
         </div>
         <a href="{% url 'main:logout' %}">
-            <button class="navbar-button">Logout</button>  <!-- Button untuk keluar dari akun -->
+            <button class="bttn">Logout</button>  <!-- Button untuk keluar dari akun -->
         </a>
     </div>
 </nav>
@@ -35,6 +36,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+    body {
+        background-color: #c3e1eb; /* Warna biru muda*/
+    }
+
     /* Mengatur tampilan navbar */
     .navbar {
         display: flex;
@@ -44,6 +49,7 @@
         color: #fff;
         padding: 10px 20px;
         margin-bottom: 40px; /* Atur jarak vertikal antara navbar dan konten di bawahnya */
+        margin: 0;
     }
 
     .navbar-left {
@@ -59,7 +65,7 @@
     }
 
     /* Mengatur tampilan button pada navbar */
-    .navbar-button {
+    .bttn {
         background-color: #007BFF;
         color: #fff;
         border: none;
@@ -105,145 +111,103 @@
     *:not(.custom-font-nama-toko) {
         font-family: 'Poppins', sans-serif;
     }
-</style>
 
-<!-- Mengatur tampilan tabel yang berisikan produk -->
-<div class="container">
-    <div style="text-align: center; padding: 20px; margin-bottom: 20px;">
-        <h5 class = "bold-font">Data Informasi Stok Buku</h5>
-    </div>
-    
-    <table class="product-table">
-        <thead style="background-color: pink; color: black;">
-            <tr>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Description</th>
-                <th>Date Added</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-            <tr class="inventory-product">
-                <td class="name-cell">{{ product.name }}</td>
-                <td class="amount-cell">
-                    <a href="reduce-amount/{{product.pk}}">
-                        <button>-</button>
-                    </a>
-                    {{ product.amount }}
-                    <a href="add-amount/{{product.pk}}">
-                        <button>+</button>
-                    </a>
-                </td>
-                <td class="description-cell">{{ product.description }}</td>
-                <td class="date-added-cell">{{ product.date_added }}</td>
-                <td style="white-space: nowrap;"> <!-- Button tidak melompat ke baris berikutnya -->
-                    <a href="{% url 'main:edit_product' product.pk %}">
-                        <button>Edit</button>
-                    </a>
-                    <span class="button-group"></span>
-                    <a href="{% url 'main:delete_product' product.pk %}">
-                        <button>Delete</button>
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-
-<style>
-    /* Mengatur tampilan untuk elemen-elemen dalam halaman main */
-    body {
-        background-color: #c3e1eb; /* Warna biru muda*/
+    .card{
+        flex-direction: row;
+        float: left;
+        margin: 20px;
+        margin-top: 0;
+        width: 300px; 
+        height: 400px; 
     }
 
-    /* Center the container */
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .container {
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: auto; /* Atur tinggi sesuai kebutuhan */
-        margin-bottom: 20px; /* Atur jarak vertikal antara navbar dan konten di bawahnya */
-        padding-bottom: 10 px; 
+        min-height: 100vh; 
     }
-
-    /* Mengatur tampilan tabel produk */
-    .product-table {
-        width: 80%; 
-        border-collapse: collapse;
-        margin: auto; 
-        background-color: #fff; 
-    }
-
-    .product-table th, .product-table td {
-        border: 1px solid #ccc;
-        padding: 8px;
-    }
-
-    /* Mengatur rata tengah untuk kolom tabel */
-    .product-table th {
-        text-align: center;
-    }
-
-    /* Rata tengah untuk nama produk */
-    .product-table .name-cell {
-        text-align: center;
-    }
-
-    /* Mengatur lebar dan rata tengah pada kolom "Amount" */
-    .product-table .amount-cell {
-        width: 150px; /* Sesuaikan lebar sesuai kebutuhan Anda */
-        text-align: center; /* Rata tengahkan isi kolom */
-    }
-
-    /* Rata justify untuk deskripsi */
-    .product-table .description-cell {
-        text-align: justify;
-    }
-
-    /* Mengatur lebar kolom "Date Added" dan rata tengah */
-    .product-table .date-added-cell {
-        width: 140px; 
-        text-align: center;
-    }
-
-    .product-table tr:hover {
-        background-color: #ddd;
-    }
-
-    /* Mengatur tampilan button */
-    .product-table button {
-        background-color: #007BFF;
-        color: #fff;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 3px;
-        cursor: pointer;
-        margin-right: 5px;
-    }
-
-    /* Mengatur tampilan button ketika di-hover*/
-    .product-table button:hover {
-        background-color: #0056b3;
-    }
-
-    .button-group {
-    display: inline-block; /* Agar tombol-tombol berada dalam satu baris */
-    margin-left: 10px; /* Memberi jarak antara tombol "Edit" dan "Delete" */
-    }
-
-    /* CSS untuk tombol hover (saat kursor di atas tombol) */
-    .navbar-button:hover {
-        background-color: #0056b3; /* Warna latar belakang saat hover */
-    }
-
-    /* Ganti dengan warna tabel baris terakhir */
-    .inventory-product:last-child {
-    background-color: rgb(249, 221, 221); 
-}
 </style>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                      <label for="name" class="col-form-label">Name:</label>
+                      <input type="text" class="form-control" id="name" name="name"></input>
+                    </div>
+                    <div class="mb-3">
+                      <label for="amount" class="col-form-label">Amount:</label>
+                      <input type="number" class="form-control" id="amount" name="amount"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row" id="product_card"></div>
+</div>
+
+<script>
+    async function getProduct() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+    
+    async function refreshProduct() {
+        document.getElementById("product_card").innerHTML = ""
+        const product = await getProduct()
+        let htmlString = ""
+        product.forEach((product) => {
+            htmlString += `<div class="card">
+            <div class="card-body">
+                <h5 class="card-title">${product.fields.name}</h5>
+                <p class="card-text">Amount: ${product.fields.amount}</p>
+                <p class="card-text">${product.fields.description}</p>
+                <a href="decrease/${product.pk}"><button class="bttn">-</button></a>
+                <a href="increase/${product.pk}"><button class="bttn">+</button></a>
+            </div>
+            </div>` 
+        })
+        
+        document.getElementById("product_card").innerHTML = htmlString
+    }
+
+    refreshProduct()
+
+    function addProduct() {
+        fetch("{% url 'main:create_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProduct)
+
+        document.getElementById("form").reset()
+        return false
+    }
+
+    document.getElementById("button_add").onclick = addProduct
+</script>
 
 {% endblock content %}

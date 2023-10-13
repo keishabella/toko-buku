@@ -380,7 +380,52 @@ body {
 
 - Akun 1
 ![Akun 1](Akun1.png)
-- Akun2
+- Akun 2
 ![Akun 2](Akun2.png)
+
+</details>
+
+<details>
+<summary>TUGAS 6</summary>
+
+## Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
+Asynchronous programming akan menjalankan tugas tanpa menunggu task yang sebelumnya selesai sehingga program tetap responsif dan efisien terutama saat menangani tugas-tugas yang memerlukan waktu yang lama. Sedangkan, synchronous programming akan menjalankan tugas secara satu per satu dan harus menunggu tugas sebelumnya selesai sebelum menjalankan tugas yang berikutnya sehingga memerlukan waktu yang lebih lama untuk menjalankan tugas-tugas.
+
+## Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
+Paradigma event-driven programming adalah pendekatan pemrograman dimana program akan menjalankan suatu task ketika ada suatu event yang terjadi, seperti adanya interaksi pengguna atau pemanggilan fungsi. 
+
+Contoh penerapannya pada tugas ini adalah pada `document.getElementById("button_add").onclick = addProduct` yang berada pada html dimana ketika butten ditekan akan memanggil fungsi addProduct.
+```
+function addProduct() {
+    fetch("{% url 'main:create_ajax' %}", {
+        method: "POST",
+        body: new FormData(document.querySelector('#form'))
+    }).then(refreshProduct)
+
+    document.getElementById("form").reset()
+    return false
+}
+
+document.getElementById("button_add").onclick = addProduct
+```
+
+## Jelaskan penerapan asynchronous programming pada AJAX.
+AJAX (Asynchronous JavaScript and XML) memungkinkan halaman web untuk memperbarui data secara ansikronus sehingga kita dapat memperbarui sebagian elemen tanpa harus me-reload halaman. AJAX dapat dilakukan dengan fungsi fetch() yang diberikan oleh JavaScript untuk melakukan pemanggilan AJAX. Fungsi `async` dan `await` memungkinkan pengimplementasian AJAX dimana fungsi `async` digunakan untuk menandai fungsi sebagai fungsi yang dapat mengembalikan nilai secara asinkronus dan fungsi `await` digunakan untuk menunggu hasil dari fungsi `async`.
+
+## Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+Fetch API:
+- Lebih ringan karena tidak perlu mengunduh library eksternal
+- Memerlukan penanganan lebih untuk perbedaan browser lama
+- Menggunakan promise, async, dan await
+
+jQuery:
+- Sintaksnya lebih sederhana dan mudah dipahami
+- Lebih berat karena perlu mengunduh library eksternal
+- Kompatibilitas lebih baik dengan berbagai browser
+
+Menurut saya, lebih baik untuk menggunakan Fetch API dalam pembelajaran PBP ini karena pendekatannnya lebih modern dan efisien. Namun jQuery juga dapat dilakukan dalam proyek yang lebih besar karena sintaks yang disediakan lebih ringkas dan mudah dipahami.
+
+## Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
 
 </details>
